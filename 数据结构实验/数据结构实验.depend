@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1595664974 source:c:\users\14362\desktop\新建文件夹\数据结构实验\main.cpp
+	<iostream>
+	"experiment.h"
+
+1595753096 c:\users\14362\desktop\新建文件夹\数据结构实验\experiment.h
+	<iostream>
+	<queue>
+	<stack>
+	"grpAdjMatrix.h"
+	"tree.h"
+
+1595665261 c:\users\14362\desktop\新建文件夹\数据结构实验\grpadjmatrix.h
+	"stdio.h"
+	"stdlib.h"
+	<iostream>
+	"string.h"
+
+1595668019 c:\users\14362\desktop\新建文件夹\数据结构实验\tree.h
+	<iostream>
+	<queue>
+
