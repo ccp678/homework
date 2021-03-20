@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1592414956 source:c:\users\14362\desktop\新建文件夹\数据结构课设\main.cpp
+	<iostream>
+	<cstdlib>
+	<windows.h>
+	<stdio.h>
+	<ctime>
+	<conio.h>
+
