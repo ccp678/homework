@@ -1,0 +1,71 @@
+#include "stdio.h"
+#define GPNCON (*(volatile unsigned long *)0x7F008830)
+#define GPNDAT (*(volatile unsigned long *)0x7F008834)
+
+#define INTMSK (*(volatile unsigned long *)0X4A000008)
+
+#define GPKCON0     		(*((volatile unsigned long *)0x7F008800))
+#define GPKDATA     		(*((volatile unsigned long *)0x7F008808))
+
+#define GPFCON (*(volatile unsigned int *)0x7F0080A0)
+#define GPFDAT (*(volatile unsigned int *)0x7F0080A4)
+#define		PWMTIMER_BASE			(0x7F006000)
+#define		TINT_CSTAT 	( *((volatile unsigned long *)(PWMTIMER_BASE+0x44)) )
+#define		TCON      	( *((volatile unsigned long *)(PWMTIMER_BASE+0x08)) )
+void timer_init(unsigned long utimer,unsigned long uprescaler,unsigned long udivider,unsigned long utcntb,unsigned long utcmpb);
+
+int main()
+{
+	timer_init(0,65,4,31250,0);
+	int dat;
+	//unsigned long temp0;
+	//unsigned long utimer=0;
+	int num = 5;//设置需要达到的值
+	int k = 0;//设置计数值
+	GPNCON = 0;
+	int flag = 0;
+	TCON &= ~(1<<0);
+	int temp;
+	int i; 
+	int j;
+	while (1)
+	{
+		dat = GPNDAT;
+		if(!(dat & (1<<0)))
+		{
+			while(!(dat & (1<<0) ))  //get k++
+			{
+				dat = GPNDAT;
+			}
+			k++;
+			
+		}
+		else if(!(dat & (1<<1)))
+		{
+			num =5;
+
+		}
+		else if(!(dat & (1<<2)))
+		{
+			num =10;
+
+		}
+		else if(!(dat & (1<<3)))
+		{
+			k=0;
+			TCON &= ~(1<<0); //shineng
+			GPKDATA = 0xff;  //fengmingqi
+			GPFDAT &= ~(1<<14); //fengmingqi
+			
+		}
+		if(k >= num)
+		{
+			k=0;
+			GPKDATA = 0;
+			GPFDAT |= (1<<14);
+			timer_init(0,65,4,31250,0);
+		}
+	}
+	
+	return 0;
+}
